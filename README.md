@@ -9,3 +9,4 @@ How to set up a router needed for a network with different WAMP service is descr
 Till now, the repository includes following examples:
 * Autobahn|Java
 * Autobahn|Java simplified: represents the same library as above, but has an easier structure 
+* A combination of Autobahn|Java and Spring
