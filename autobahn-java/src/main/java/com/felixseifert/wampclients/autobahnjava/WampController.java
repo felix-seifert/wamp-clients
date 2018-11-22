@@ -9,19 +9,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 
-public class Controller {
+public class WampController {
 
-    private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(WampController.class.getName());
 
     private static final String PROCEDURE = "com.felixseifert.wampclients.autobahnjava.procedure";
 
-    private static final String TOPIC = "com.felixseifert.wampclients.autobahnjava.publication";
+    private static final String TOPIC = "com.felixseifert.wampclients.autobahnjava.topic";
 
     private final Executor executor;
 
     private final Session session;
 
-    public Controller(Executor executor) {
+    public WampController(Executor executor) {
         this.executor = executor;
         this.session = new Session(executor);
 
@@ -33,7 +33,7 @@ public class Controller {
 
     public int start(String url, String realm) {
 
-        LOGGER.info(String.format("Controller started with url=%s, realm=%s", url, realm));
+        LOGGER.info(String.format("WampController started with url=%s, realm=%s", url, realm));
 
         Client client = new Client(session, url, realm, executor);
         CompletableFuture<ExitInfo> exitFuture = client.connect();
@@ -64,7 +64,7 @@ public class Controller {
         // Call procedure with the arguments arg1 and arg2
         CompletableFuture<CallResult> completableFuture =
                 session.call(PROCEDURE, arg1, arg2);
-        completableFuture.thenAccept(callResult -> LOGGER.info("Result of call: " + callResult.results));
+        completableFuture.thenAccept(callResult -> System.out.println("Result of call: " + callResult.results));
     }
 
     public void subscribeExample(Session session, SessionDetails details) {
@@ -74,7 +74,7 @@ public class Controller {
     }
 
     private void subscribeHandler(List<Object> args) {
-        LOGGER.info("Received via subscription: " + args.get(0));
+        System.out.println("Received via subscription: " + args.get(0));
     }
 
     public void publishExample(Session session, SessionDetails details) {

@@ -21,10 +21,10 @@ public class Main {
         String url = APPLICATION_PROPERTIES.getProperty("connection.url");
         String realm = APPLICATION_PROPERTIES.getProperty("connection.realm");
 
-        Controller controller = new Controller(executor);
+        WampController wampController = new WampController(executor);
 
-        LOGGER.info("Controller started");
-        int returnCode = controller.start(url, realm);
+        LOGGER.info("WampController started");
+        int returnCode = wampController.start(url, realm);
 
         LOGGER.info(String.format(".. ended with return code %s", returnCode));
         System.exit(returnCode);

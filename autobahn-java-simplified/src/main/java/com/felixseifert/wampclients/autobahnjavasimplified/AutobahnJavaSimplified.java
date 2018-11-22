@@ -16,7 +16,7 @@ public class AutobahnJavaSimplified {
 
     private static final String PROCEDURE = "com.felixseifert.wampclients.autobahnjavasimplified.procedure";
 
-    private static final String TOPIC = "com.felixseifert.wampclients.autobahnjavasimplified.publication";
+    private static final String TOPIC = "com.felixseifert.wampclients.autobahnjavasimplified.topic";
 
     private static final String URL = "ws://127.0.0.1:8080/ws";
 
@@ -60,7 +60,7 @@ public class AutobahnJavaSimplified {
         // Call procedure with the arguments arg1 and arg2
         CompletableFuture<CallResult> completableFuture =
                 session.call(PROCEDURE, arg1, arg2);
-        completableFuture.thenAccept(callResult -> LOGGER.info("Result of call: " + callResult.results));
+        completableFuture.thenAccept(callResult -> System.out.println("Result of call: " + callResult.results));
     }
 
     public void subscribeExample(Session session, SessionDetails details) {
@@ -70,7 +70,7 @@ public class AutobahnJavaSimplified {
     }
 
     private void subscribeHandler(List<Object> args) {
-        LOGGER.info("Received via subscription: " + args.get(0));
+        System.out.println("Received via subscription: " + args.get(0));
     }
 
     public void publishExample(Session session, SessionDetails details) {
