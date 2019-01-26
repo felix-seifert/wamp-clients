@@ -29,16 +29,23 @@ public class WampController {
 
     private static final String TOPIC = "com.felixseifert.wampclients.autobahnspring.topic";
 
-    @PostConstruct
-    public void start() {
+    private final Executor executor;
 
-        Executor executor = Executors.newSingleThreadExecutor();
-        Session session = new Session(executor);
+    private final Session session;
+
+    public WampController() {
+
+        this.executor = Executors.newSingleThreadExecutor();
+        this.session = new Session(executor);
 
         session.addOnJoinListener(this::registerExample);
         session.addOnJoinListener(this::callExample);
         session.addOnJoinListener(this::subscribeExample);
         session.addOnJoinListener(this::publishExample);
+    }
+
+    @PostConstruct
+    public void start() {
 
         LOGGER.info(String.format("WampController started with url=%s, realm=%s", url, realm));
 
